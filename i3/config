@@ -193,7 +193,8 @@ exec --no-startup-id /home/peau_c/./.fehbg
 exec --no-startup-id nm-applet
 
 #Custom binds
-bindsym Control+e exec aplay ~/Musics/eau.wav
-bindsym Control+t exec aplay ~/Musics/ftg.wav
-bindsym Control+Shift+l exec utile/lock.sh
+bindsym $mod+Control+e exec aplay ~/Musics/eau.wav
+bindsym $mod+Control+t exec aplay ~/Musics/ftg.wav
+bindsym $mod+Control+l exec utile/lock.sh
+bindsym $mod+Control+y exec aplay ~/Musics/sounds_r2.wav
 bindsym Print exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots/'
