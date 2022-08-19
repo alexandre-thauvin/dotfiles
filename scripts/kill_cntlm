@@ -1,2 +1,0 @@
-#!/usr/bin/env fish
-killall -9 cntlm
