@@ -1,5 +1,4 @@
 #!/usr/bin/env fish
 sudo apt update
 sudo apt upgrade
-brew upgrade
 sudo snap refresh
