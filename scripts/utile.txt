@@ -1,9 +1,0 @@
-update-ca-trust
-pavucontrol : son
-/sys/class/backlight ...
-uninstall : pacman -R toto
-update : sudo pacman -Syyuu
-mount dde : sudo mount /dev/sdb1 /media/test-mount
-unblock wifi : sudo rfkill unblock all
-
-multilib ==> /etc/pacman.conf => multilib
