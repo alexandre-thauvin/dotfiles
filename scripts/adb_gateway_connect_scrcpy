@@ -1,3 +1,0 @@
-#!/usr/bin/env fish
-adb connect tunnel.myesmart.net:$argv[1]
-scrcpy --serial tunnel.myesmart.net:$argv[1]
