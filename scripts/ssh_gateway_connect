@@ -1,2 +1,0 @@
-#!/usr/bin/env fish
-ssh -i ~/.ssh/imx8-key1.key root@tunnel.myesmart.net -p $argv[1]
