@@ -10,8 +10,8 @@ set -gx PATH $ANDROID_HOME/emulator $PATH;
 set --export SNAP /snap 
 
 set --export JAVA_HOME /opt/android-studio/jre;
-set -gx PATH "/home/linuxbrew/.linuxbrew/bin:/opt/android-studio/bin:/bin:/sbin:/usr/bin:/usr/local/share/dotnet:/usr/local/bin:/usr/sbin:/usr/local/share:/flutter/bin:/home/alexandrethauvin/dotefiles/scripts:$JAVA_HOME" $PATH;
-set VIRTUAL_ENV "/home/alexandrethauvin/venv"
+set -gx PATH "/var/lib/snapd/snap/bin:/opt/android-studio/bin:/bin:/sbin:/usr/bin:/usr/local/share/dotnet:/usr/local/bin:/usr/sbin:/usr/local/share:/flutter/bin:/home/toto/dotfiles/scripts:$JAVA_HOME" $PATH;
+set VIRTUAL_ENV "/home/toto/venv"
 
 alias grep='grep --color'
 alias shutdown='systemctl poweroff -i'

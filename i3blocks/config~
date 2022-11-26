@@ -78,7 +78,7 @@ interval=2
 [cpu_usage]
 label=CPU 
 interval=10
-COLOR_NORMAL=#d88aff
+color=#d88aff
 min_width=CPU: 100.00%
 
 [calendar]

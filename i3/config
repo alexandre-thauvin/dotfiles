@@ -38,7 +38,7 @@ exec --no-startup-id nm-applet
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+t exec i3-sensible-terminal
+bindsym $mod+t exec kitty
 
 # start brave
 bindsym $mod+b exec brave
@@ -217,7 +217,7 @@ focus_follows_mouse no
 #exec --no-startup-id i3-msg 'workspace $ws1 output DVI-I-1-1; exec /bin/android-studio; workspace $ws3; exec /bin/i3-sensible-terminal; workspace $ws5; exec /bin/thunderbird; workspace $ws7; exec /var/lib/snapd/snap/bin/gitkraken; workspace $ws9; exec /var/lib/snapd/snap/bin/slack; workspace $ws2 output DVI-I-2-2; exec /bin/brave; workspace $ws4; exec /var/lib/snapd/snap/bin/teams; workspace $ws6; exec /var/lib/snapd/snap/bin/spotify; workspace $ws8; exec /bin/signal-desktop;'
 
 
-exec ~/toto.sh
+#exec ~/toto.sh
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
