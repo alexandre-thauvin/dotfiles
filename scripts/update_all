@@ -1,5 +1,0 @@
-#!/usr/bin/env fish
-sudo apt update
-sudo apt upgrade
-flatpak update
-sudo snap refresh

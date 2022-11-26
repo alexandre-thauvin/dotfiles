@@ -1,2 +1,2 @@
-i3lock -f -t --image "/home/alexandrethauvin/Pictures/wallpapers/`ls /home/alexandrethauvin/Pictures/wallpapers | head -$((RANDOM%$(ls /home/alexandrethauvin/Pictures/wallpapers | wc -w)+1)) | tail -1`"
+i3lock -f -t --image "/home/toto/Pictures/wallpapers/`ls /home/toto/Pictures/wallpapers | head -$((RANDOM%$(ls /home/toto/Pictures/wallpapers | wc -w)+1)) | tail -1`"
 
