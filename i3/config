@@ -210,7 +210,7 @@ bindsym $mod+q kill
 exec setxkbmap -layout us -variant intl
 
 #suspend 
-exec systemctl suspend
+bindsym $mod+Shift+Escape exec systemctl suspend
 
 #border stroke
 for_window [class=".*"] border pixel 5
