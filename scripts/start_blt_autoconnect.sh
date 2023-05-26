@@ -1,3 +1,3 @@
 #!/usr/bin/env fish
-sleep 10s
+sleep 30s
 bluetooth-autoconnect

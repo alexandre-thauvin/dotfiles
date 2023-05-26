@@ -1,4 +1,4 @@
-while [ "$DISPLAY" == ":0" ]
+while (true)
 do
     feh --bg-fill --randomize ~/Pictures/wallpapers
     sleep 5m
