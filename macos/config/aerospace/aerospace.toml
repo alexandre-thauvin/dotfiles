@@ -10,7 +10,7 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-    'exec-and-forget borders active_color=0xff2dff03 inactive_color=0xff3252a8 width=6.5',
+    'exec-and-forget borders active_color=0xff2dff03 inactive_color=0xff3252a8 width=6.5'
 ]
 
 # Notify Sketchybar about workspace change
