@@ -30,10 +30,9 @@ mv ~/.config/sketchybar ~/.config/backup/sketchybar
 mv `~/Library/Application Support/nushell/config.nu` ~/.config/backup/nushell/
 
 # create dirs
-echo "creating dirs for aerospace/starship and kitty"
+echo "creating dirs for aerospace and kitty"
 
 mkdir ~/.config/aerospace
-mkdir ~/.config/starship
 mkdir ~/.config/kitty
 
 # symlink all config files
@@ -43,7 +42,7 @@ ln -s ~/dotfiles/macos/config/nushell/config.nu `~/Library/Application Support/n
 ln -s ~/dotfiles/macos/config/aerospace/aerospace.toml ~/.config/aerospace/aerospace.toml
 ln -s ~/dotfiles/macos/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 ln -s ~/dotfiles/macos/config/sketchybar/ ~/.config/sketchybar
-ln -s ~/dotfiles/common/config/starship/starship.toml ~/.config/starship/starship.toml
+ln -s ~/dotfiles/common/config/starship/starship.toml ~/.config/starship.toml
 
 # launch all
 echo "Starting Sketchybar"
