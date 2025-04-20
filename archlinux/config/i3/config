@@ -10,6 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod1
+set $super Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -49,7 +50,7 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # class                 border  backgr. text    indicator child_border                        
 #client.focused_inactive #0d1010 #212121 #d9d9d9 #0d1010 #063340                                                                            
 #client.unfocused        #0d1010 #212121 #d9d9d9 #424242 #063340                                                                            
-client.focused          #f700d2 #f700d2  #000000 #f700d2  #f700d2                                                                          
+client.focused          #2df700 #2df700  #000000 #2df700  #2df700                                                                          
 
 # change focus
 #bindsym $mod+j focus left
@@ -82,7 +83,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 #bindsym $mod+s layout stacking
@@ -103,15 +104,15 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1 - Android Studio"
-set $ws2 "2 - Firefox"
-set $ws3 "3 - Terminal"
-set $ws4 "4 - Chat"
-set $ws5 "5 - Thunderbird"
-set $ws6 "6 - Spotify"
-set $ws7 "7 - Gitkraken"
-set $ws8 "8 - Other chat"
-set $ws9 "9 - Slack"
+set $ws1 "1 - Android Studio + Browser"
+set $ws2 "2 - Kitty + Editor"
+set $ws3 "3 - Spotify/Media"
+set $ws4 "4 - Signal + Telegram"
+set $ws5 "5 - Mail + gitkraken"
+set $ws6 "6 - "
+set $ws7 "7 -"
+set $ws8 "8 -"
+set $ws9 "9 -"
 set $ws10 "10"
 
 # switch to workspace
@@ -187,12 +188,12 @@ bar {
 }
 
 #run monitor disposition script on startup
-exec ~/.screenlayout/double_screen.sh
+#exec ~/.screenlayout/double_screen.sh
 
 workspace_auto_back_and_forth yes
 
 #lock
-bindsym $mod+l exec --no-startup-id ~/dotfiles/scripts/lock.sh
+bindsym $super+Control+q exec --no-startup-id ~/dotfiles/scripts/lock.sh
 
 # start a terminal
 bindsym $mod+t exec kitty
@@ -201,17 +202,18 @@ bindsym $mod+t exec kitty
 bindsym $mod+b exec firefox
 
 # take screenshot and copy to clipboard
-bindcode 107 exec maim -s | xclip -selection clipboard -t image/png
+bindcode 13 exec maim -s | xclip -selection clipboard -t image/png
 
 # kill focused window bindsym
-bindsym $mod+q kill
+bindsym $super+q kill
+bindsym Control+q kill
 
 #set keyboard
 exec setxkbmap -layout us -variant intl
-bindcode 70 exec setxkbmap -layout us -variant intl
+bindcode 248 exec setxkbmap -layout us -variant intl
 
 #restart pulseaudio
-bindcode 69 exec --no-startup-id ~/dotfiles/scripts/restart_pulseaudio.sh
+bindcode 128 exec --no-startup-id ~/dotfiles/scripts/restart_pulseaudio.sh
 
 
 #suspend 
@@ -238,10 +240,9 @@ exec --no-startup-id ~/dotfiles/scripts/start_blt_autoconnect.sh
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindcode 96 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks
-bindcode 95 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks
-bindcode 76 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks
-bindcode  exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+10 i3blocks
-bindcode 75 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-bindcode 74 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindcode 73 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous 
+bindcode 123 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks
+bindcode 122 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks
+bindcode 121 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks
+bindcode 171 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindcode 172 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindcode 173 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous 
