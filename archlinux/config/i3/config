@@ -202,7 +202,8 @@ bindsym $mod+t exec kitty
 bindsym $mod+b exec firefox
 
 # take screenshot and copy to clipboard
-bindcode 13 exec maim -s | xclip -selection clipboard -t image/png
+bindcode 50 exec maim -s | xclip -selection clipboard -t image/png
+bindsym $mod+s exec maim -s | xclip -selection clipboard -t image/png
 
 # kill focused window bindsym
 bindsym $super+q kill
