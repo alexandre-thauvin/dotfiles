@@ -6,7 +6,7 @@ $env.JAVA_HOME = ^/usr/libexec/java_home -v 17 | str trim
 
 # PATH
 use std/util "path add"
-path add "/opt/homebrew/bin" $"($env.ANDROID_HOME)/tools" $"($env.ANDROID_HOME)/tools/bin" $"($env.ANDROID_HOME)/platform-tools" $"($env.ANDROID_HOME)/emulator" "/opt" $"($env.M2_HOME)" "scripts" "/opt/android-studio/bin" "/usr/local/share/dotnet" "/usr/local/share"
+path add "~/dotfiles/scripts" "/opt/homebrew/bin" $"($env.ANDROID_HOME)/tools" $"($env.ANDROID_HOME)/tools/bin" $"($env.ANDROID_HOME)/platform-tools" $"($env.ANDROID_HOME)/emulator" "/opt" $"($env.M2_HOME)" "scripts" "/opt/android-studio/bin" "/usr/local/share/dotnet" "/usr/local/share"
 
 # aliases
 alias grep = grep --color
