@@ -38,9 +38,12 @@ exec --no-startup-id nm-applet
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# start albert (a program launcher)
+# if albert is broken replace by ulauncher
+exec --no-startup-id albert
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+
+#bindsym $mod+d exec --no-startup-id ulauncher
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
