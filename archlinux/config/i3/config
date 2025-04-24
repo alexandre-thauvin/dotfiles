@@ -42,6 +42,8 @@ floating_modifier $mod
 # if albert is broken replace by ulauncher
 exec --no-startup-id albert
 
+#exec_always --no-startup-id sxhkd
+
 
 #bindsym $mod+d exec --no-startup-id ulauncher
 # A more modern dmenu replacement is rofi:
@@ -49,6 +51,9 @@ exec --no-startup-id albert
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+# render workspace according to apps
+exec_always --no-startup-id exec i3-workspace-names-daemon
 
 # class                 border  backgr. text    indicator child_border                        
 #client.focused_inactive #0d1010 #212121 #d9d9d9 #0d1010 #063340                                                                            
@@ -107,12 +112,12 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1 - Android Studio + Browser"
-set $ws2 "2 - Kitty + Editor"
-set $ws3 "3 - Spotify/Media"
-set $ws4 "4 - Signal + Telegram"
-set $ws5 "5 - Mail + gitkraken"
-set $ws6 "6 - "
+set $ws1 number 1
+set $ws2 number 2
+set $ws3 number 3
+set $ws4 number 4
+set $ws5 number 5
+set $ws6 number 6
 set $ws7 "7 -"
 set $ws8 "8 -"
 set $ws9 "9 -"
@@ -179,14 +184,15 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+        font pango: CaskaydiaMono Nerd Font,CaskaydiaMono NF 13
         tray_padding 0
 	separator_symbol ":-:"
 	status_command SCRIPT_DIR=~/.config/i3blocks/i3blocklets 2>/tmp/i3blocks.err i3blocks -v
 	Colors {
-		focused_workspace  #008fff #007fff #ffffff
+		focused_workspace  #2df700 #222222 #2df700
 		active_workspace   #333333 #5f676a #ffffff
-		inactive_workspace #333333 #222222 #888888
-		urgent_workspace   #aa0000 #990000 #ffffff
+		inactive_workspace #008fff #222222 #008fff
+		urgent_workspace   #aa0000 #222222 #aa0000
 	}
 }
 
@@ -228,7 +234,7 @@ for_window [class=".*"] border pixel 5
 focus_follows_mouse no
 
 #Application start on login
-exec --no-startup-id i3-msg 'workspace $ws1 output HDM-A-0; exec /bin/android-studio; workspace $ws3; exec /bin/i3-sensible-terminal; workspace $ws5; exec /bin/thunderbird; workspace $ws7; exec /var/lib/snapd/snap/bin/gitkraken; workspace $ws9; exec /var/lib/snapd/snap/bin/slack; workspace $ws2 output DisplayPort-2; exec /bin/brave; workspace $ws4; exec /var/lib/snapd/snap/bin/teams; workspace $ws6; exec /var/lib/snapd/snap/bin/spotify; workspace $ws8; exec /bin/signal-desktop;'
+#exec --no-startup-id i3-msg 'workspace $ws1; exec /bin; workspace $ws5; exec /bin/thunderbird; workspace $ws7; exec /var/lib/snapd/snap/bin/gitkraken; workspace $ws9; exec /var/lib/snapd/snap/bin/slack; workspace $ws2 output DisplayPort-2; exec /bin/brave; workspace $ws4; exec /var/lib/snapd/snap/bin/teams; workspace $ws6; exec /var/lib/snapd/snap/bin/spotify; workspace $ws8; exec /bin/signal-desktop;'
 
 
 #exec ~/toto.sh
