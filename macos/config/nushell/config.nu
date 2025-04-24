@@ -1,7 +1,9 @@
 # env vars
 $env.M2_HOME = $'($env.PWD)/work/apache-maven-3.9.7'
 $env.ANDROID_HOME = '/Applications/Android Studio.app/Contents'
-$env.JAVA_HOME = ^/usr/libexec/java_home -v 17 | str trim
+$env.JAVA_HOME = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home'
+# only used for SQ/timesheet
+$env.TS_HOME_OFFICE = 0
 
 
 # PATH
@@ -21,10 +23,18 @@ alias tsp = ts push
 alias tsr = ts report
 alias tss = ts start
 
+# keep the builtin around
+alias nu-open = open
+
+# restore 'open' to the system Finder opener
+alias open = ^open
+
 # functions
-def tssup [hour] { ts start hours eb71b25fb54f1000fc322951351d0000 Support }
-def tssbusiness [hour] { ts start hour 37d365e8f24710013b4a632bd2f90001 Development }
-def tsscommunity [hour] { ts start hour 3515c2a1ff2110015b2c1c322a140000 community }
+# only used for SQ/timesheet
+def tssup [hour comment = ""] { ts start $hour $"eb71b25fb54f1000fc322951351d0000 Maintenance/Bugfix/Support ($comment)" }
+def tssbusiness [hour comment = ""] { ts start $hour $"37d365e8f24710013b4a632bd2f90001 Development ($comment)" }
+def tsscommunity [hour comment = ""] { ts start $hour $"3515c2a1ff2110015b2c1c322a140000 community ($comment)" }
+def tsstraining [hour comment = ""] { ts start $hour $"6320c5d3af8a1000f144e04fa7570001 ($comment)" }
 
 # open VS code for given file
 def code [file] {
