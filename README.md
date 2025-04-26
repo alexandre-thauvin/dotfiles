@@ -5,19 +5,22 @@ Here is my config for MacOS and Archlinux. Some are common, some are specific.
 ## Archlinux
 
 [i3-wm](https://i3wm.org/)
+
 ![image](https://github.com/user-attachments/assets/9ad1dd5b-405b-4fdf-944f-b68078d6d566)
 
-[i3-status & bar]
-![image](https://i3wm.org/docs/i3status.html)
+[i3-status & bar](https://i3wm.org/docs/i3status.html)
+
+![image](https://github.com/user-attachments/assets/574e7dcd-9589-4482-a791-d4e5f3b30007)
+
 
 [Custom dynamic workspaces reflected in status bar](https://github.com/alexandre-thauvin/i3-workspace-names-daemon)
-![image](https://github.com/user-attachments/assets/a1d2d85a-3bdb-4eaf-9d80-28986a91a3a3)
+
+![image](https://github.com/user-attachments/assets/a375cda4-cb2b-4f89-b30e-c0d614d7860c)
+
 
 
 ## MacOS
 
-
-## MacOS
 
 ## Scripts
 
