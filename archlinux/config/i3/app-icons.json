@@ -1,0 +1,12 @@
+{
+    "firefox": "firefox",
+    "kitty": "kitty",
+    "thunderbird": "thunderbird",
+    "dolphin": "dolphin",
+    "Signal": "signal",
+    "Spotify": "spotify",
+    "TelegramDesktop": "telegram",
+    "code-oss": "code",
+    "gitkraken": "gitkraken",
+    "_no_match": "no_match"
+}
