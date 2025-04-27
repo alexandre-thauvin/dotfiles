@@ -38,16 +38,18 @@ There is a `install.sh` under `dotfiles/macos`. It will:
 
 ## Archlinux
 
-[i3-wm](https://i3wm.org/)
+[i3-wm](https://i3wm.org/) Window manager
 
 ![image](https://github.com/user-attachments/assets/9ad1dd5b-405b-4fdf-944f-b68078d6d566)
 
-[i3-status & bar](https://i3wm.org/docs/i3status.html)
+[i3-status & bar](https://i3wm.org/docs/i3status.html) Status bar for i3
+
+[keyd](https://github.com/rvaiya/keyd) key remapping, lightweight, operate at very low level
 
 ![image](https://github.com/user-attachments/assets/574e7dcd-9589-4482-a791-d4e5f3b30007)
 
 
-[Custom dynamic workspaces reflected in status bar](https://github.com/alexandre-thauvin/i3-workspace-names-daemon)
+[i3-workspace-names-daemon](https://github.com/alexandre-thauvin/i3-workspace-names-daemon) Custom dynamic workspaces reflected in status bar
 
 ![image](https://github.com/user-attachments/assets/a375cda4-cb2b-4f89-b30e-c0d614d7860c)
 
