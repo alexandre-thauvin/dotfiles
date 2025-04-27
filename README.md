@@ -7,22 +7,33 @@ Here is my config for MacOS and Archlinux. Some are common, some are specific.
 https://github.com/user-attachments/assets/ebc9aa01-1a14-4ff1-9889-726ef9c63a0c
 
 [Aerospace](https://github.com/nikitabobko/AeroSpace)
-
-![image](https://github.com/user-attachments/assets/baeacde7-1916-4912-9ed7-441cfe7206a1)
+The best window manager for macOS by far
 
 [SketchyBar](https://github.com/FelixKratz/SketchyBar?tab=readme-ov-file)
-
-![image](https://github.com/user-attachments/assets/9f91551a-6433-44f5-b624-57c2e2a2849a)
+A custom status bar
 
 [SbarLua](https://github.com/FelixKratz/SbarLua)
+Lua API for SketchyBar
 
 [JankyBorders](https://github.com/FelixKratz/JankyBorders)
+Make borders of focused window
 
 [Kitty](https://sw.kovidgoyal.net/kitty/)
+Terminal
 
 [Nushell](https://www.nushell.sh/)
+Structued shell
 
 [Starship](https://starship.rs/)
+Nice prompt for many shells
+
+### Installation
+
+There is a `install.sh` under `dotfiles/macos`. It will:
+- install all requirements listed above
+- backup your config files if existing
+- create symlink to config files (feel free to remove the symlink and do a copy and change the config files as you wish)
+- start the apps
 
 
 ## Archlinux
