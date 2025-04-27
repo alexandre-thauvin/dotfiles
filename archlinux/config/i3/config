@@ -208,7 +208,7 @@ bindsym $super+Control+q exec --no-startup-id ~/dotfiles/scripts/lock.sh
 bindsym $mod+t exec kitty
 
 # start brave
-bindsym $mod+b exec firefox
+bindsym $mod+b exec brave
 
 # take screenshot and copy to clipboard
 bindsym $mod+s exec maim -s | xclip -selection clipboard -t image/png
