@@ -159,6 +159,11 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-f = 'fullscreen'
     alt-shift-r = 'reload-config'
 
+    # Launching following apps from shortcut
+    alt-t = 'exec-and-forget open -a kitty'
+    alt-b = "exec-and-forget open -a 'Brave Browser'"
+    alt-m = 'exec-and-forget open -a Spotify'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
