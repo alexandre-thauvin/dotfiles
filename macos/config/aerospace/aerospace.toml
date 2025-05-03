@@ -193,19 +193,28 @@ run = "move-node-to-workspace 2"
 if.app-id = 'net.kovidgoyal.kitty'
 run = "move-node-to-workspace 2"
 
-
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
 run = "move-node-to-workspace 3"
 
-
 [[on-window-detected]]
-if.app-id = 'com.spotify.client'
+if.app-id = 'ru.keepcoder.Telegram'
 run = "move-node-to-workspace 3"
 
+[[on-window-detected]]
+if.app-id = 'org.whispersystems.signal-desktop'
+run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = 'com.readdle.smartemail-Mac'
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
 run = "move-node-to-workspace 4"
 
 
