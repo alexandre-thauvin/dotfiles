@@ -35,6 +35,7 @@ def tssup [hour comment = ""] { ts start $hour $"eb71b25fb54f1000fc322951351d000
 def tssbusiness [hour comment = ""] { ts start $hour $"37d365e8f24710013b4a632bd2f90001 Development ($comment)" }
 def tsscommunity [hour comment = ""] { ts start $hour $"3515c2a1ff2110015b2c1c322a140000 community ($comment)" }
 def tsstraining [hour comment = ""] { ts start $hour $"6320c5d3af8a1000f144e04fa7570001 ($comment)" }
+def tssfxunity [hour comment = ""] { ts start $hour $"38ebf2228ddf1000ae967066db4b0000 Development Credentials Migration" }
 
 # open VS code for given file
 def code [file] {

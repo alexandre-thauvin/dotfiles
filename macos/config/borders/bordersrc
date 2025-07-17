@@ -1,0 +1,10 @@
+options=(
+  style=round
+  width=7
+  hidpi=on
+  active_color=0xff2dff03  # green
+  inactive_color=0xff3252a8 # blue
+  order=above
+)
+ 
+borders "${options[@]}"
