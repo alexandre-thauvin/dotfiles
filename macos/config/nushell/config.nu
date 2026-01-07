@@ -22,6 +22,8 @@ alias tsl = ts lunch
 alias tsp = ts push
 alias tsr = ts report
 alias tss = ts start
+alias vpn-on = launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*
+alias vpn-off = launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*
 
 # keep the builtin around
 alias nu-open = open
