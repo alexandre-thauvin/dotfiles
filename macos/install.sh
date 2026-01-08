@@ -29,6 +29,22 @@ brew install kitty
 echo "Installing luarocks"
 brew install luarocks
 
+echo "Installing node and pnpm"
+brew install node
+brew pnpm
+
+# Installing fonts
+echo "Installing fonts"
+brew install --cask font-sf-pro
+brew install --cask font-sf-mono
+brew install --cask sf-symbols
+brew install --cask font-hack-nerd-font
+brew install --cask font-awesome
+git clone git@github.com:kvndrsslr/sketchybar-app-font.git
+cd sketchybar-app-font
+pnpm install
+pnpm run build:install
+
 # Needed for sketchybar X aerospace
 echo "Installing lua-cjson and luaposix needed by luarocks for sketchybar X aerospace"
 
