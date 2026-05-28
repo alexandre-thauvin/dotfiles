@@ -6,7 +6,7 @@ def kill_if_running [process_name: string] {
     ps
     | where name =~ $process_name
     | get pid
-    | each { |pid| kill -9 $pid }
+    | each { |pid| kill $pid }
 }
 
 kill_if_running "AeroSpace"

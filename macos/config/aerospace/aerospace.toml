@@ -192,6 +192,9 @@ run = "move-node-to-workspace 1"
 if.app-id = 'com.microsoft.VSCode'
 run = "move-node-to-workspace 2"
 
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
