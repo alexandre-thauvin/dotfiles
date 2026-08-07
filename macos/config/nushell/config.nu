@@ -4,11 +4,26 @@ $env.ANDROID_HOME = '/Applications/Android Studio.app/Contents'
 $env.JAVA_HOME = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home'
 # only used for SQ/timesheet
 $env.TS_HOME_OFFICE = 0
+# Jira: the PAT lives in the macOS Keychain (service "jira-pat"), never in this repo.
+# Store it once per machine with:
+#   security add-generic-password -s jira-pat -a $env.USER -w
+# then resolve it on demand:
+#   $env.JIRA_API_TOKEN = (security find-generic-password -s jira-pat -w | str trim)
+$env.JIRA_AUTH_TYPE = "bearer"
+
+$env.SSL_CERT_FILE = '/Users/athauvin/work/swissquote/certificates/ca-certificates.crt'
+
+# Ruby via RVM (RVM's shell function doesn't work in nushell, so wire it up by hand)
+$env.GEM_HOME = ($env.HOME | path join ".rvm/gems/ruby-3.4.5")
+$env.GEM_PATH = ([
+    ($env.HOME | path join ".rvm/gems/ruby-3.4.5")
+    ($env.HOME | path join ".rvm/gems/ruby-3.4.5@global")
+] | str join (char esep))
 
 
 # PATH
 use std/util "path add"
-path add "~/dotfiles/scripts" "/opt/homebrew/bin" $"($env.ANDROID_HOME)/tools" $"($env.ANDROID_HOME)/tools/bin" $"($env.ANDROID_HOME)/platform-tools" $"($env.ANDROID_HOME)/emulator" "/opt" $"($env.M2_HOME)" "scripts" "/opt/android-studio/bin" "/usr/local/share/dotnet" "/usr/local/share"
+path add "~/.rvm/rubies/ruby-3.4.5/bin" "~/.rvm/gems/ruby-3.4.5/bin" "~/.rvm/gems/ruby-3.4.5@global/bin" "~/.rvm/bin" "~/dotfiles/scripts" "/opt/homebrew/bin" "/opt/homebrew/sbin" $"($env.ANDROID_HOME)/tools" $"($env.ANDROID_HOME)/tools/bin" $"($env.ANDROID_HOME)/platform-tools" $"($env.ANDROID_HOME)/emulator" "/opt" $"($env.M2_HOME)" "scripts" "/opt/android-studio/bin" "/usr/local/share/dotnet" "/usr/local/share" "~/.local/bin"
 
 # aliases
 alias grep = grep --color
