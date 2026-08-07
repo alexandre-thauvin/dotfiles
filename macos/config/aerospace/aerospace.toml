@@ -186,19 +186,19 @@ run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
-run = "move-node-to-workspace 1"
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.teams2'
+if.app-id = 'net.kovidgoyal.kitty'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = "move-node-to-workspace 2"
+if.app-id = 'com.microsoft.teams2'
+run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
