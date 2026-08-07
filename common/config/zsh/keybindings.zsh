@@ -39,13 +39,18 @@ bindkey '^[[1;3D' backward-word
 bindkey '^[[1;3C' forward-word
 
 # ------------------------------------------------------------------- deletion
-bindkey '^W' backward-kill-word         # kitty: alt+bksp -> \x17
-bindkey '^U' kill-whole-line            # kitty: cmd+bksp -> \x15
-bindkey '^[[3~' delete-char             # Delete
-bindkey '^[[3;3~' kill-word             # alt+Delete: forward one word
-bindkey '^K' kill-line
+# Backwards, with backspace.
+bindkey '^W' backward-kill-word         # kitty: alt+bksp  -> \x17
+bindkey '^U' kill-whole-line            # kitty: cmd+bksp  -> \x15
 bindkey '^?' backward-delete-char       # Backspace
 bindkey '^H' backward-delete-char       # Backspace over ssh / linux consoles
+
+# Forwards, with delete (fn+backspace on a laptop keyboard).
+bindkey '^[[3~' delete-char             # Delete: one character
+bindkey '^[d'   kill-word               # kitty: alt+delete -> \x1b\x64
+bindkey '^K'    kill-line               # kitty: cmd+delete -> \x0b
+bindkey '^[[3;3~' kill-word             # alt+Delete CSI form, other terminals
+bindkey '^[[3;9~' kill-line             # cmd+Delete CSI form, other terminals
 
 # --------------------------------------------------------- history (fish-like)
 # Up/down search history for entries starting with what is already typed, which
