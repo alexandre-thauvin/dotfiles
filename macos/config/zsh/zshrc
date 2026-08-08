@@ -9,7 +9,14 @@ ZSH_CONFIG="$DOTFILES/common/config/zsh"
 
 # ------------------------------------------------------------------ environment
 
-export JAVA_HOME='/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home'
+# Ask macOS for JDK 17 rather than hard-coding a Homebrew path: openjdk@17 is not
+# installed on every machine sharing this config, and a JAVA_HOME pointing at a
+# missing directory does not fail gracefully -- Gradle and Maven abort outright.
+# java_home resolves whichever 17 is actually present (Homebrew, Corretto, JBR).
+if _java_home=$(/usr/libexec/java_home -v 17 2>/dev/null); then
+  export JAVA_HOME="$_java_home"
+fi
+unset _java_home
 
 # The Android SDK, not the Android Studio app bundle. The nushell config pointed
 # ANDROID_HOME at '/Applications/Android Studio.app/Contents', which contains no
@@ -23,7 +30,13 @@ export ANDROID_SDK_ROOT="$ANDROID_HOME"
 # only ever resolved when the shell happened to start in $HOME.)
 export M2_HOME="$HOME/work/apache-maven-3.9.7"
 
-export SSL_CERT_FILE="$HOME/work/swissquote/certificates/ca-certificates.crt"
+# Swissquote's internal CA bundle, exported only when the checkout exists. An
+# SSL_CERT_FILE pointing at a missing file is worse than none at all: curl then
+# fails *every* HTTPS request with "error 77: error setting certificate verify
+# locations", including ones to public hosts that need no internal CA.
+_sq_ca_bundle="$HOME/work/swissquote/certificates/ca-certificates.crt"
+[[ -f $_sq_ca_bundle ]] && export SSL_CERT_FILE="$_sq_ca_bundle"
+unset _sq_ca_bundle
 
 # only used for SQ/timesheet
 export TS_HOME_OFFICE=0
@@ -56,14 +69,21 @@ unset _candidates _prepend _dir
 # RVM's shell function costs ~170ms to source, so load it on first use instead of
 # on every shell start. RVM sets GEM_HOME/GEM_PATH/PATH itself once loaded, which
 # is why none of that is hand-wired here any more.
-_load_rvm() {
-  unfunction rvm ruby gem bundle bundler irb rake gemset 2>/dev/null
-  source "$HOME/.rvm/scripts/rvm"
-}
-for _cmd in rvm ruby gem bundle bundler irb rake gemset; do
-  eval "$_cmd() { _load_rvm; $_cmd \"\$@\"; }"
-done
-unset _cmd
+#
+# Only wrap these commands when RVM is actually installed. Otherwise the wrapper
+# fires on the first `ruby`/`gem`/`bundle`, fails to source a script that is not
+# there, and prints "no such file or directory" before falling through to the
+# system ruby -- noise on every machine that shares this config without RVM.
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+  _load_rvm() {
+    unfunction rvm ruby gem bundle bundler irb rake gemset 2>/dev/null
+    source "$HOME/.rvm/scripts/rvm"
+  }
+  for _cmd in rvm ruby gem bundle bundler irb rake gemset; do
+    eval "$_cmd() { _load_rvm; $_cmd \"\$@\"; }"
+  done
+  unset _cmd
+fi
 
 # --------------------------------------------------------------------- aliases
 

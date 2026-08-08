@@ -17,17 +17,22 @@ brew install starship
 echo "Installing zsh completion, suggestions and highlighting"
 brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions
 
-echo "Installing shell tools (fuzzy finder, dir jumping, better ls/cat)"
-brew install fzf zoxide eza bat
+echo "Installing shell tools (fuzzy finder, dir jumping, better ls/cat, grep)"
+# ripgrep is what plugins.zsh points FZF_DEFAULT_COMMAND at, so ctrl-t/ctrl-r
+# search hidden files and honour .gitignore instead of falling back to find.
+brew install fzf zoxide eza bat ripgrep
 
 echo "Installing fzf-tab (not in homebrew)"
+mkdir -p ~/.local/share/zsh
 git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git ~/.local/share/zsh/fzf-tab
 
 echo "Installing sketchybar"
 brew install sketchybar
 
 echo "Installing nerd font"
-brew install font-hack-nerd-font
+# A cask, not a formula -- `brew install font-hack-nerd-font` errors out.
+# (Also installed in the fonts block below; harmless, brew is idempotent.)
+brew install --cask font-hack-nerd-font
 
 echo "Installing kitty"
 brew install kitty
@@ -37,7 +42,7 @@ brew install luarocks
 
 echo "Installing node and pnpm"
 brew install node
-brew pnpm
+brew install pnpm
 
 # Installing fonts
 echo "Installing fonts"
@@ -86,6 +91,14 @@ ln -s ~/dotfiles/macos/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 ln -s ~/dotfiles/macos/config/borders/bordersrc ~/.config/borders/bordersrc
 ln -s ~/dotfiles/macos/config/sketchybar/ ~/.config/sketchybar
 ln -s ~/dotfiles/common/config/starship/starship.toml ~/.config/starship.toml
+
+# zsh completions
+# Homebrew leaves share/ group-writable, which compinit treats as insecure. Since
+# completion.zsh runs `compinit -i` (skip rather than block on a y/n prompt), the
+# result is not a warning but Homebrew's completions silently never loading. Drop
+# the group write bit so compaudit is clean and brew/gh/git completions work.
+echo "tightening permissions on brew's completion dirs"
+chmod g-w /opt/homebrew/share
 
 # launch all
 echo "Starting borders via service"
