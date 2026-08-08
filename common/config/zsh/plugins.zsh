@@ -38,9 +38,13 @@ if [[ -f "$HOME/.local/share/zsh/fzf-tab/fzf-tab.plugin.zsh" ]]; then
   zstyle ':fzf-tab:complete:*:*' fzf-flags --height=60%
 
   # Preview directory contents when completing cd/ls/etc.
+  # --icons=always, not a bare --icons: the flag's value is optional, so a
+  # trailing bare --icons would consume $realpath and the preview pane would come
+  # up empty -- silently, because the error goes to the /dev/null below.
+  # 'always' rather than 'auto' since fzf's preview is a pipe, not a tty.
   if (( $+commands[eza] )); then
     zstyle ':fzf-tab:complete:(cd|ls|eza|rm|mv|cp):*' fzf-preview \
-      'eza -1 --color=always --icons $realpath 2>/dev/null'
+      'eza -1 --color=always --icons=always $realpath 2>/dev/null'
   fi
   # Preview file contents elsewhere.
   if (( $+commands[bat] )); then

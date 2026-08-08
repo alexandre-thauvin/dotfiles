@@ -10,13 +10,18 @@ alias ne='emacs'
 alias dlt="$HOME/dotfiles/scripts/mr_clean"
 
 # ------------------------------------------------------------------ eza  (ls)
+# Always write --icons=auto, never a bare --icons. Since eza 0.19 the flag takes
+# an optional value (--icons [<WHEN>]), so a trailing bare --icons eats the path
+# argument: `ls Downloads` became --icons=Downloads and died with "invalid value
+# 'Downloads'". Spelling the value out keeps the positional a positional.
+# 'auto' also drops the glyphs when piping, so `ls | grep` stays clean.
 if (( $+commands[eza] )); then
-  alias ls='eza --group-directories-first --icons'
-  alias l='eza -1 --group-directories-first --icons'
-  alias ll='eza -l --group-directories-first --icons --git --time-style=long-iso'
-  alias la='eza -la --group-directories-first --icons --git --time-style=long-iso'
-  alias lt='eza --tree --level=2 --group-directories-first --icons'
-  alias tree='eza --tree --group-directories-first --icons'
+  alias ls='eza --group-directories-first --icons=auto'
+  alias l='eza -1 --group-directories-first --icons=auto'
+  alias ll='eza -l --group-directories-first --icons=auto --git --time-style=long-iso'
+  alias la='eza -la --group-directories-first --icons=auto --git --time-style=long-iso'
+  alias lt='eza --tree --level=2 --group-directories-first --icons=auto'
+  alias tree='eza --tree --group-directories-first --icons=auto'
 else
   alias ls='ls -G'
   alias ll='ls -lh'
