@@ -1,19 +1,10 @@
-#!/usr/bin/env nu
+#!/usr/bin/env bash
 
-let aerospace_app_name = "AeroSpace"
-
-def kill_if_running [process_name: string] {
-    ps
-    | where name =~ $process_name
-    | get pid
-    | each { |pid| kill $pid }
-}
-
-kill_if_running "AeroSpace"
-kill_if_running "sketchybar"
+pkill "AeroSpace"
+pkill "sketchybar"
 
 # small delay to ensure clean shutdown
-sleep 200ms
+sleep 0.2
 
 # Relaunch AeroSpace detached from the terminal
-^open -na $aerospace_app_name
+open -na "AeroSpace"

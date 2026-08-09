@@ -1,0 +1,123 @@
+#!/usr/bin/env zsh
+# ~/.zshrc  ->  ~/dotfiles/macos/config/zsh/zshrc
+#
+# Interactive zsh for macOS. Everything macOS-specific lives in this file;
+# portable pieces are sourced from common/config/zsh/ at the bottom.
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+ZSH_CONFIG="$DOTFILES/common/config/zsh"
+
+# ------------------------------------------------------------------ environment
+
+# Ask macOS for JDK 17 rather than hard-coding a Homebrew path: openjdk@17 is not
+# installed on every machine sharing this config, and a JAVA_HOME pointing at a
+# missing directory does not fail gracefully -- Gradle and Maven abort outright.
+# java_home resolves whichever 17 is actually present (Homebrew, Corretto, JBR).
+if _java_home=$(/usr/libexec/java_home -v 17 2>/dev/null); then
+  export JAVA_HOME="$_java_home"
+fi
+unset _java_home
+
+# The Android SDK, not the Android Studio app bundle. The nushell config pointed
+# ANDROID_HOME at '/Applications/Android Studio.app/Contents', which contains no
+# SDK at all -- so platform-tools/emulator never made it onto PATH and only
+# Gradle ever found the SDK, via each project's local.properties.
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+
+# Maven is not installed on this machine right now. Kept so the PATH entry below
+# activates on its own once it is. (The nushell version interpolated $PWD, so it
+# only ever resolved when the shell happened to start in $HOME.)
+export M2_HOME="$HOME/work/apache-maven-3.9.7"
+
+# Swissquote's internal CA bundle, exported only when the checkout exists. An
+# SSL_CERT_FILE pointing at a missing file is worse than none at all: curl then
+# fails *every* HTTPS request with "error 77: error setting certificate verify
+# locations", including ones to public hosts that need no internal CA.
+_sq_ca_bundle="$HOME/work/swissquote/certificates/ca-certificates.crt"
+[[ -f $_sq_ca_bundle ]] && export SSL_CERT_FILE="$_sq_ca_bundle"
+unset _sq_ca_bundle
+
+# only used for SQ/timesheet
+export TS_HOME_OFFICE=0
+
+# ------------------------------------------------------------------------- PATH
+# zsh mirrors the $path array into $PATH; -U keeps both duplicate-free.
+# Only existing directories are added, so a missing SDK or Maven never leaves a
+# dead entry slowing down every command lookup.
+typeset -U path PATH
+
+typeset -a _candidates=(
+  "$DOTFILES/scripts"
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
+  "$ANDROID_HOME/platform-tools"
+  "$ANDROID_HOME/emulator"
+  "$ANDROID_HOME/cmdline-tools/latest/bin"
+  "$M2_HOME/bin"
+  "$HOME/.local/bin"
+  /usr/local/share/dotnet
+)
+typeset -a _prepend=()
+for _dir in "${_candidates[@]}"; do
+  [[ -d $_dir ]] && _prepend+=("$_dir")
+done
+path=("${_prepend[@]}" $path)
+unset _candidates _prepend _dir
+
+# ------------------------------------------------------------------------- Ruby
+# RVM's shell function costs ~170ms to source, so load it on first use instead of
+# on every shell start. RVM sets GEM_HOME/GEM_PATH/PATH itself once loaded, which
+# is why none of that is hand-wired here any more.
+#
+# Only wrap these commands when RVM is actually installed. Otherwise the wrapper
+# fires on the first `ruby`/`gem`/`bundle`, fails to source a script that is not
+# there, and prints "no such file or directory" before falling through to the
+# system ruby -- noise on every machine that shares this config without RVM.
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+  _load_rvm() {
+    unfunction rvm ruby gem bundle bundler irb rake gemset 2>/dev/null
+    source "$HOME/.rvm/scripts/rvm"
+  }
+  for _cmd in rvm ruby gem bundle bundler irb rake gemset; do
+    eval "$_cmd() { _load_rvm; $_cmd \"\$@\"; }"
+  done
+  unset _cmd
+fi
+
+# --------------------------------------------------------------------- aliases
+
+alias vpn-on='launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*'
+alias vpn-off='launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*'
+
+# only used for SQ/timesheet
+alias ts='/bin/bash $HOME/work/swissquote/timesheet/ts.sh'
+alias tsc='ts continue'
+alias tse='ts stop'
+alias tsl='ts lunch'
+alias tsp='ts push'
+alias tsr='ts report'
+alias tss='ts start'
+
+# -------------------------------------------------------------------- functions
+
+# open a file or directory in VS Code
+code() { open -a "Visual Studio Code" "$@"; }
+
+# only used for SQ/timesheet -- start a slot on a known project/step
+tssup()        { ts start "$1" "eb71b25fb54f1000fc322951351d0000 Maintenance/Bugfix/Support ${2:-}"; }
+tssbusiness()  { ts start "$1" "37d365e8f24710013b4a632bd2f90001 Development ${2:-}"; }
+tsscommunity() { ts start "$1" "3515c2a1ff2110015b2c1c322a140000 community ${2:-}"; }
+tsstraining()  { ts start "$1" "6320c5d3af8a1000f144e04fa7570001 ${2:-}"; }
+tssWultra()    { ts start "$1" "2ea69c2f72a61000a23497c639fb0001 ${2:-}"; }
+
+# ----------------------------------------------------------- portable modules
+# Order matters: completion must run before plugins (fzf-tab wraps compinit's
+# completion system) and plugins must run before prompt.
+source "$ZSH_CONFIG/history.zsh"
+source "$ZSH_CONFIG/aliases.zsh"
+source "$ZSH_CONFIG/secrets.zsh"
+source "$ZSH_CONFIG/completion.zsh"
+source "$ZSH_CONFIG/plugins.zsh"
+source "$ZSH_CONFIG/keybindings.zsh"
+source "$ZSH_CONFIG/prompt.zsh"

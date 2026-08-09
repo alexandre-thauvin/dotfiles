@@ -106,62 +106,62 @@ automatically-unhide-macos-hidden-apps = false
     # '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-    ctrl-alt-cmd-slash = 'layout tiles horizontal vertical'
-    ctrl-alt-cmd-comma = 'layout accordion horizontal vertical'
+    ctrl-cmd-slash = 'layout tiles horizontal vertical'
+    ctrl-cmd-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    ctrl-alt-cmd-left = 'focus left'
-    ctrl-alt-cmd-down = 'focus down'
-    ctrl-alt-cmd-up = 'focus up'
-    ctrl-alt-cmd-right = 'focus right'
+    ctrl-cmd-left = 'focus left'
+    ctrl-cmd-down = 'focus down'
+    ctrl-cmd-up = 'focus up'
+    ctrl-cmd-right = 'focus right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
-    ctrl-alt-cmd-shift-left = 'move left'
-    ctrl-alt-cmd-shift-down = 'move down'
-    ctrl-alt-cmd-shift-up = 'move up'
-    ctrl-alt-cmd-shift-right = 'move right'
+    ctrl-cmd-shift-left = 'move left'
+    ctrl-cmd-shift-down = 'move down'
+    ctrl-cmd-shift-up = 'move up'
+    ctrl-cmd-shift-right = 'move right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-    ctrl-alt-cmd-minus = 'resize smart -50'
-    ctrl-alt-cmd-equal = 'resize smart +50'
+    ctrl-cmd-minus = 'resize smart -50'
+    ctrl-cmd-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-    ctrl-alt-cmd-1 = 'workspace 1'
-    ctrl-alt-cmd-2 = 'workspace 2'
-    ctrl-alt-cmd-3 = 'workspace 3'
-    ctrl-alt-cmd-4 = 'workspace 4'
-    ctrl-alt-cmd-5 = 'workspace 5'
-    ctrl-alt-cmd-6 = 'workspace 6'
-    ctrl-alt-cmd-7 = 'workspace 7'
-    ctrl-alt-cmd-8 = 'workspace 8'
-    ctrl-alt-cmd-9 = 'workspace 9'
+    ctrl-cmd-1 = 'workspace 1'
+    ctrl-cmd-2 = 'workspace 2'
+    ctrl-cmd-3 = 'workspace 3'
+    ctrl-cmd-4 = 'workspace 4'
+    ctrl-cmd-5 = 'workspace 5'
+    ctrl-cmd-6 = 'workspace 6'
+    ctrl-cmd-7 = 'workspace 7'
+    ctrl-cmd-8 = 'workspace 8'
+    ctrl-cmd-9 = 'workspace 9'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-    ctrl-alt-cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-    ctrl-alt-cmd-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-    ctrl-alt-cmd-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-    ctrl-alt-cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-    ctrl-alt-cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
-    ctrl-alt-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
-    ctrl-alt-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
-    ctrl-alt-cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
-    ctrl-alt-cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+    ctrl-cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+    ctrl-cmd-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+    ctrl-cmd-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+    ctrl-cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+    ctrl-cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+    ctrl-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+    ctrl-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+    ctrl-cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+    ctrl-cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-    ctrl-alt-cmd-tab = 'workspace-back-and-forth'
+    ctrl-cmd-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-    ctrl-alt-cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+    ctrl-cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-    ctrl-alt-cmd-shift-semicolon = 'mode service'
+    ctrl-cmd-shift-semicolon = 'mode service'
 
-    ctrl-alt-cmd-shift-f = 'fullscreen'
-    ctrl-alt-cmd-shift-r = 'reload-config'
+    ctrl-cmd-shift-f = 'fullscreen'
+    ctrl-cmd-shift-r = 'reload-config'
 
     # Launching following apps from shortcut
-    ctrl-alt-cmd-t = 'exec-and-forget open -a kitty'
-    ctrl-alt-cmd-b = "exec-and-forget open -a 'Brave Browser'"
-    ctrl-alt-cmd-m = 'exec-and-forget open -a Spotify'
+    ctrl-cmd-t = 'exec-and-forget open -a kitty'
+    ctrl-cmd-b = "exec-and-forget open -a 'Brave Browser'"
+    ctrl-cmd-m = 'exec-and-forget open -a Spotify'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -174,10 +174,10 @@ automatically-unhide-macos-hidden-apps = false
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
     #s = ['layout sticky tiling', 'mode main']
 
-    ctrl-alt-cmd-shift-h = ['join-with left', 'mode main']
-    ctrl-alt-cmd-shift-j = ['join-with down', 'mode main']
-    ctrl-alt-cmd-shift-k = ['join-with up', 'mode main']
-    ctrl-alt-cmd-shift-l = ['join-with right', 'mode main']
+    ctrl-cmd-shift-h = ['join-with left', 'mode main']
+    ctrl-cmd-shift-j = ['join-with down', 'mode main']
+    ctrl-cmd-shift-k = ['join-with up', 'mode main']
+    ctrl-cmd-shift-l = ['join-with right', 'mode main']
 
 # Moving specific apps to specified workspace
 [[on-window-detected]]
@@ -186,14 +186,10 @@ run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
-run = "move-node-to-workspace 1"
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.teams2'
+if.app-id = 'com.microsoft.VSCode'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
@@ -201,11 +197,19 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Notes'
+if.app-id = 'com.microsoft.teams2'
 run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = "move-node-to-workspace 3" 
+
+[[on-window-detected]]
 if.app-id = 'ru.keepcoder.Telegram'
+run = "move-node-to-workspace 3"
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
 run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
@@ -218,6 +222,10 @@ run = "move-node-to-workspace 4"
 
 [[on-window-detected]]
 if.app-id = 'com.readdle.smartemail-Mac'
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = 'com.readdle.SparkDesktop.appstore'
 run = "move-node-to-workspace 4"
 
 [[on-window-detected]]
