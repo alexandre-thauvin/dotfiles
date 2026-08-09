@@ -44,6 +44,8 @@ alias gd='git diff'
 alias gl='git log --oneline --graph --decorate -20'
 alias gp='git pull --rebase'
 
+alias check_flight_monitor="$HOME/work/flight-anomaly-monitor/scripts/check_monitor.sh"
+
 # ------------------------------------------------------------------- misc
 alias ..='cd ..'
 alias ...='cd ../..'
