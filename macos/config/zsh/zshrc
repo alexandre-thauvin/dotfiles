@@ -105,11 +105,11 @@ alias tss='ts start'
 code() { open -a "Visual Studio Code" "$@"; }
 
 # only used for SQ/timesheet -- start a slot on a known project/step
-tssup()        { ts start "$1" "eb71b25fb54f1000fc322951351d0000 Maintenance/Bugfix/Support ${2:-}"; }
-tssbusiness()  { ts start "$1" "37d365e8f24710013b4a632bd2f90001 Development ${2:-}"; }
-tsscommunity() { ts start "$1" "3515c2a1ff2110015b2c1c322a140000 community ${2:-}"; }
-tsstraining()  { ts start "$1" "6320c5d3af8a1000f144e04fa7570001 ${2:-}"; }
-tssWultra()    { ts start "$1" "2ea69c2f72a61000a23497c639fb0001 ${2:-}"; }
+tsTechSup()   { ts start "$1" "b33140f3e692100193ebbaef42d40002 Tech Support ${2:-}"; }
+tsSup()       { ts start "$1" "5fff237020a91001457aa7b5d97b0001 Support ${2:-}"; }
+tscommunity() { ts start "$1" "3515c2a1ff2110015b2c1c322a140000 community ${2:-}"; }
+tstraining()  { ts start "$1" "6320c5d3af8a1000f144e04fa7570001 ${2:-}"; }
+tsWultra()    { ts start "$1" "2ea69c2f72a61000a23497c639fb0001 ${2:-}"; }
 
 # ----------------------------------------------------------- portable modules
 # Order matters: completion must run before plugins (fzf-tab wraps compinit's
