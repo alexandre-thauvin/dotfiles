@@ -1,4 +1,19 @@
-#!/usr/bin/env lua
+#!/opt/homebrew/opt/lua@5.4/bin/lua
+--
+-- Pinned to lua@5.4 rather than `/usr/bin/env lua`, which follows whatever
+-- Homebrew's unversioned `lua` formula happens to be. That formula moved from
+-- 5.4 to 5.5, and the jump breaks the bar in two ways at once:
+--
+--   * lua-cjson and luaposix (required by aerospace.lua) live in the versioned
+--     tree /opt/homebrew/lib/lua/5.4, which a 5.5 interpreter never searches --
+--     hence "module 'cjson' not found" out of nowhere, with nothing uninstalled.
+--   * SbarLua's sketchybar.so is compiled against the 5.4 C API, and loading it
+--     into 5.5 kills the process outright instead of raising a lua error.
+--
+-- Upgrading the whole stack means rebuilding SbarLua from source and finding a
+-- luaposix that builds on 5.5, so pin instead. lua@5.4 is keg-only, so this path
+-- is stable and does not fight the unversioned formula. install.sh installs it
+-- and targets luarocks at it explicitly.
 
 -- Load the sketchybar-package and prepare the helper binaries
 require("helpers")

@@ -37,8 +37,12 @@ brew install --cask font-hack-nerd-font
 echo "Installing kitty"
 brew install kitty
 
-echo "Installing luarocks"
-brew install luarocks
+echo "Installing lua 5.4 and luarocks"
+# lua@5.4 explicitly, not the unversioned `lua` formula. sketchybarrc pins its
+# shebang to lua@5.4 because SbarLua's sketchybar.so is built against the 5.4 C
+# API; see the comment at the top of sketchybarrc. luarocks pulls the
+# unversioned lua in as a dependency -- harmless, nothing points at it.
+brew install lua@5.4 luarocks
 
 echo "Installing node and pnpm"
 brew install node
@@ -59,8 +63,13 @@ pnpm run build:install
 # Needed for sketchybar X aerospace
 echo "Installing lua-cjson and luaposix needed by luarocks for sketchybar X aerospace"
 
-luarocks install lua-cjson
-luarocks install luaposix
+# --lua-version/--lua-dir are mandatory: luarocks otherwise builds for whichever
+# lua the unversioned formula currently is and drops the .so into
+# /opt/homebrew/lib/lua/<that version>/, which sketchybarrc's 5.4 interpreter
+# never searches. That is exactly the "module 'cjson' not found" failure that
+# appears out of nowhere after a routine `brew upgrade`.
+luarocks --lua-version=5.4 --lua-dir=/opt/homebrew/opt/lua@5.4 install lua-cjson
+luarocks --lua-version=5.4 --lua-dir=/opt/homebrew/opt/lua@5.4 install luaposix
 
 # create and backup all config
 echo "backing up config"
