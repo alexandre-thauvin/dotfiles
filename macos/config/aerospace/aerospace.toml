@@ -232,8 +232,10 @@ run = "move-node-to-workspace 4"
 if.app-id = 'com.spotify.client'
 run = "move-node-to-workspace 4"
 
-
 [[on-window-detected]]
 if.app-id = 'com.axosoft.gitkraken'
 run = "move-node-to-workspace 5"
 
+[[on-window-detected]]
+if.app-id = 'com.todoist.mac.Todoist'
+run = "move-node-to-workspace 6"
