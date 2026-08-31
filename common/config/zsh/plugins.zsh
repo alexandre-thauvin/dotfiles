@@ -75,7 +75,7 @@ fi
 
 # ----------------------------------------------------------------------- zoxide
 # `z swissquote` jumps to the most-used matching directory; `zi` picks with fzf.
-(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+(( $+commands[zoxide] )) && zsh_eval_cache zoxide zoxide init zsh
 
 # ------------------------------------------------------------ syntax highlight
 # LAST. Wraps every widget defined above, so anything sourced after it loses

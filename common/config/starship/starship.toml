@@ -17,7 +17,7 @@ $golang\
 $nodejs\
 $bun\
 $php\
-$java\
+${custom.java}\
 $kotlin\
 $haskell\
 $python\
@@ -136,9 +136,26 @@ style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 
 [java]
+# The stock module fills $version by spawning `java -Xinternalversion`. A cold JVM
+# here routinely needs more than starship's 500ms command_timeout, which stalls the
+# first prompt and logs "Executing command ... timed out". custom.java below reads
+# the same version straight out of the JDK's release file instead.
+disabled = true
 symbol = ""
 style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[custom.java]
+description = "JDK version, read from $JAVA_HOME/release instead of starting a JVM"
+# Same triggers as the stock java module.
+detect_extensions = ["java", "class", "gradle", "jar", "cljs", "cljc"]
+detect_files = ["pom.xml", "build.gradle.kts", "build.sbt", ".java-version", "deps.edn", "project.clj", "build.boot", ".sdkmanrc"]
+# zshrc exports JAVA_HOME; java_home is the fallback for machines where it does not
+# (its `-v 17` found no JDK). Both are cheap: no JVM starts either way.
+command = '''h=${JAVA_HOME:-$(/usr/libexec/java_home 2>/dev/null)}; sed -n 's/^JAVA_VERSION="\(.*\)"$/\1/p' "$h/release" 2>/dev/null'''
+style = "bg:color_blue"
+# Everything sits inside the ( ) group, so a JDK-less machine renders nothing at all
+# rather than a bare icon.
+format = '[[(  v$output )](fg:color_fg0 bg:color_blue)]($style)'
 
 [kotlin]
 symbol = ""

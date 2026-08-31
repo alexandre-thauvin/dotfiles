@@ -46,8 +46,14 @@ autoload -Uz compinit
 _zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
 if [[ -n ${_zcompdump}(#qN.mh+24) || ! -s $_zcompdump ]]; then
   compinit -i -d "$_zcompdump"
-  # Recompile in the background so later shells load bytecode instead of parsing.
-  { zcompile -R -- "$_zcompdump" } &!
+  # compinit rewrites the dump only when fpath actually changed, so on a settled
+  # machine its mtime never moves -- which left the check above true forever and
+  # made *every* shell pay for the full audit (~30ms). Stamp it here so the 24h
+  # window actually starts. The touch has to come before the zcompile: zsh
+  # ignores a .zwc that is older than its source.
+  #
+  # Recompiling gives later shells bytecode instead of 57K of dump to parse.
+  { touch -- "$_zcompdump"; zcompile -R -- "$_zcompdump" } &!
 else
   compinit -C -d "$_zcompdump"
 fi

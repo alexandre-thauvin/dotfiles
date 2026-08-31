@@ -52,18 +52,44 @@ kitty reloads its config with `ctrl+cmd+,` or on restart.
 
 ## zsh configuration
 
-`macos/config/zsh/zshrc` is the entry point: it sets macOS-specific environment (JAVA_HOME via
-`java_home`, `ANDROID_HOME`, `$path`, lazy RVM, Swissquote timesheet aliases/functions), then
-sources the portable modules from `common/config/zsh/`.
+`macos/config/zsh/zshrc` is the entry point: it sets macOS-specific environment (JAVA_HOME by
+globbing the JVM directories, `ANDROID_HOME`, `$path`, lazy RVM, Swissquote timesheet
+aliases/functions), then sources the portable modules from `common/config/zsh/`.
 
 **The source order at the bottom of `zshrc` is load-bearing and failures are silent:**
-`history → aliases → secrets → completion → plugins → keybindings → prompt`.
+`cache → history → aliases → secrets → completion → plugins → keybindings → prompt`.
+`cache.zsh` defines `zsh_eval_cache`, which `plugins.zsh` and `prompt.zsh` both call.
 `completion.zsh` must run `compinit` before `plugins.zsh` sources fzf-tab (fzf-tab wraps the
 completion system), and `keybindings.zsh` must run after plugins so its `bindkey` calls win.
 
 Inside `plugins.zsh` the order is also load-bearing: fzf → fzf-tab → zsh-autosuggestions →
 zoxide → **zsh-syntax-highlighting last**, because it wraps every ZLE widget that exists when it
 is sourced.
+
+### Startup time
+
+A shell start is ~70ms; it was ~145ms before the caching below, and regressions are easy to
+introduce because everything here is optional and silent. What keeps it down:
+
+- **No process spawns in the rc path.** `zsh_eval_cache` (`cache.zsh`) stores what
+  `starship init zsh` and `zoxide init zsh` print under `~/.cache/zsh`, zcompiled, and sources
+  that; JAVA_HOME comes from a glob rather than `/usr/libexec/java_home`. Anything new that
+  wants `eval "$(tool init zsh)"` should go through `zsh_eval_cache` instead. The caches are
+  keyed on the tool's binary, so a `brew upgrade` refreshes them but changed *arguments* do not
+  — `rm -rf ~/.cache/zsh` after editing a call.
+- **`compinit -C` on the fast path.** `completion.zsh` runs the full audit at most once a day
+  and has to `touch` the dump itself to keep that promise, since compinit only rewrites it when
+  fpath actually changed.
+- **The prompt is the other half of the budget.** Every prompt runs `starship prompt`, and
+  starship's own modules shell out for versions — see the `[custom.java]` note in
+  `starship.toml` for why the stock `[java]` module is disabled.
+
+Measure with `for i in $(seq 10); do /usr/bin/time zsh -l -i -c exit; done` (kitty starts *login*
+shells, so `-l` matters — that is what runs `~/.zlogin`, where RVM installs an eager
+`source ~/.rvm/scripts/rvm` that undoes the lazy wrappers in `zshrc`), and profile with
+`zmodload zsh/zprof` at the top of a throwaway `$ZDOTDIR/.zshrc` plus `zprof` at the bottom.
+zprof only sees functions, so time command substitutions with
+`PS4='+%D{%s%6.}|%N:%i> ' zsh -i -x -c exit` instead.
 
 ### Guard everything
 

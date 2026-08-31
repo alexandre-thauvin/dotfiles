@@ -9,14 +9,22 @@ ZSH_CONFIG="$DOTFILES/common/config/zsh"
 
 # ------------------------------------------------------------------ environment
 
-# Ask macOS for JDK 17 rather than hard-coding a Homebrew path: openjdk@17 is not
-# installed on every machine sharing this config, and a JAVA_HOME pointing at a
-# missing directory does not fail gracefully -- Gradle and Maven abort outright.
-# java_home resolves whichever 17 is actually present (Homebrew, Corretto, JBR).
-if _java_home=$(/usr/libexec/java_home -v 17 2>/dev/null); then
-  export JAVA_HOME="$_java_home"
-fi
-unset _java_home
+# Find whichever JDK 17 is actually present (Homebrew, Corretto, JBR) rather than
+# hard-coding a path: openjdk@17 is not installed on every machine sharing this
+# config, and a JAVA_HOME pointing at a missing directory does not fail
+# gracefully -- Gradle and Maven abort outright.
+#
+# This used to ask /usr/libexec/java_home, which costs ~12ms of every single
+# shell start. The two directories globbed below are the only places java_home
+# looks, so the answer is the same; (NOn) sorts them newest-name-first, and
+# $(<file) is a zsh builtin read, so the whole thing forks nothing.
+for _home in ~/Library/Java/JavaVirtualMachines/*/Contents/Home(NOn) \
+             /Library/Java/JavaVirtualMachines/*/Contents/Home(NOn); do
+  [[ -r $_home/release && "$(<$_home/release)" == *'JAVA_VERSION="17'* ]] || continue
+  export JAVA_HOME="$_home"
+  break
+done
+unset _home
 
 # The Android SDK, not the Android Studio app bundle. The nushell config pointed
 # ANDROID_HOME at '/Applications/Android Studio.app/Contents', which contains no
@@ -74,6 +82,12 @@ unset _candidates _prepend _dir
 # fires on the first `ruby`/`gem`/`bundle`, fails to source a script that is not
 # there, and prints "no such file or directory" before falling through to the
 # system ruby -- noise on every machine that shares this config without RVM.
+#
+# Caveat: RVM's installer also drops `source "$HOME/.rvm/scripts/rvm"` into
+# ~/.zlogin, and kitty starts *login* shells -- so in a kitty tab RVM is loaded
+# eagerly anyway and these wrappers never get a chance to fire. Deleting that one
+# line from ~/.zlogin (not a file this repo owns) is what makes the laziness real;
+# it is worth ~14ms per tab.
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
   _load_rvm() {
     unfunction rvm ruby gem bundle bundler irb rake gemset 2>/dev/null
@@ -112,8 +126,10 @@ tstraining()  { ts start "$1" "6320c5d3af8a1000f144e04fa7570001 ${2:-}"; }
 tsWultra()    { ts start "$1" "2ea69c2f72a61000a23497c639fb0001 ${2:-}"; }
 
 # ----------------------------------------------------------- portable modules
-# Order matters: completion must run before plugins (fzf-tab wraps compinit's
-# completion system) and plugins must run before prompt.
+# Order matters: cache must run before its users (plugins, prompt), completion
+# must run before plugins (fzf-tab wraps compinit's completion system) and
+# plugins must run before prompt.
+source "$ZSH_CONFIG/cache.zsh"
 source "$ZSH_CONFIG/history.zsh"
 source "$ZSH_CONFIG/aliases.zsh"
 source "$ZSH_CONFIG/secrets.zsh"
