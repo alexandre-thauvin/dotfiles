@@ -63,7 +63,13 @@ if [[ -f "$_brew_share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#7f8490'
   # Fall back to completion when history has nothing to offer.
   ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-  ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20   # don't suggest against huge pasted blocks
+  # Only needed because the fetch is synchronous: every keystroke runs a history
+  # glob, so pasting a multi-KB blob would stutter. Keep it well clear of any real
+  # command line -- past the cap the plugin skips the *fetch*, and because it can
+  # still slice a suggestion it already holds, that shows up as suggestions dying
+  # only when you delete a word from a long line while typing forward keeps
+  # working. At 20 the cliff sat mid-`bundle exec fastlane`.
+  ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=500
   source "$_brew_share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
