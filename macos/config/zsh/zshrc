@@ -112,6 +112,7 @@ alias tsl='ts lunch'
 alias tsp='ts push'
 alias tsr='ts report'
 alias tss='ts start'
+alias timesheet='$HOME/work/swissquote/scripts/ts-week.sh'
 
 # -------------------------------------------------------------------- functions
 
