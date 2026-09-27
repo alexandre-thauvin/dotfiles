@@ -138,3 +138,6 @@ source "$ZSH_CONFIG/completion.zsh"
 source "$ZSH_CONFIG/plugins.zsh"
 source "$ZSH_CONFIG/keybindings.zsh"
 source "$ZSH_CONFIG/prompt.zsh"
+
+# Hermes Agent command
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
