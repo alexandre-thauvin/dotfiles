@@ -46,6 +46,11 @@ alias gp='git pull --rebase'
 
 alias check_flight_monitor="$HOME/work/flight-anomaly-monitor/scripts/check_monitor.sh"
 
+# ---------------------------------------------------------------- qwen local
+alias start_qwen_local="$HOME/dotfiles/scripts/qwen_local.sh start"
+alias stop_qwen_local="$HOME/dotfiles/scripts/qwen_local.sh stop"
+alias status_qwen_local="$HOME/dotfiles/scripts/qwen_local.sh status"
+
 # ------------------------------------------------------------------- misc
 alias ..='cd ..'
 alias ...='cd ../..'
