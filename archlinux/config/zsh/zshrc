@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # ~/.zshrc  ->  ~/dotfiles/archlinux/config/zsh/zshrc
 #
-# Interactive zsh for the Arch box. Replaces archlinux/config/nushell: same
+# Interactive zsh for the Arch box. Replaced nushell (removed): same
 # shell, prompt and key bindings as macOS, so commands (and scripts pasted over
 # ssh) need no translation. Everything Arch-specific lives in this file;
 # portable pieces are sourced from common/config/zsh/ at the bottom.

@@ -16,7 +16,7 @@ The repo is expected to live at `~/dotfiles`. `macos/install.sh` hardcodes that 
 ```
 common/config/<app>/     shared between macOS and Arch (zsh modules, starship)
 macos/config/<app>/      macOS-only (zsh entry point, aerospace, sketchybar, kitty, borders)
-archlinux/config/<app>/  Arch-only (i3, i3blocks, keyd, kitty, ulauncher, nushell)
+archlinux/config/<app>/  Arch-only (i3, i3blocks, keyd, kitty, ulauncher, zsh)
 scripts/                 standalone helper scripts; on $PATH via zshrc
 macos/install.sh         the only installer (there is none for Arch)
 ```
@@ -174,8 +174,7 @@ Config only, no installer; apply by copying or symlinking by hand. The shell is 
 macOS: `archlinux/config/zsh/zshrc` is symlinked to `~/.zshrc` and sources the same `common/`
 modules. Those modules must therefore never assume a Homebrew path — `plugins.zsh` looks each
 plugin up through `_zsh_plugin_find` (Homebrew first, then pacman's `/usr/share/...`), and a new
-plugin needs both locations listed. `archlinux/config/nushell/` is a leftover from before the
-switch and is no longer the login shell.
+plugin needs both locations listed.
 
 ## Conventions
 
