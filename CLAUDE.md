@@ -163,7 +163,7 @@ the bar height in `bar.lua` means changing that gap too.
 ## scripts/
 
 On `$PATH` via `zshrc`. Mixed provenance: several (`mr_clean`, `superfind`, `superkill`,
-`show_running_activities.sh`, `restart_pulseaudio.sh`, `start_blt_autoconnect.sh`) have
+`show_running_activities.sh`, `restart_pulseaudio.sh`) have
 `#!/usr/bin/env fish` shebangs and use fish `$argv` syntax, and some are Linux-only
 (`lock.sh` uses i3lock, `setRandomWallpapers.sh` uses feh, with hardcoded `/home/toto` paths).
 Don't assume a script is portable or POSIX — read the shebang before editing.

@@ -105,7 +105,6 @@ There is a `install.sh` under `dotfiles/macos`. It will:
 ## Scripts
 
 There is some diverses scripts such as:
-- Toggle bluetooth for auto-connect
 - Show running activities on any android devices connected through ADB
 - A script to take screenshot
 - Restart pulseaudio

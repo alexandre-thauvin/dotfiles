@@ -242,10 +242,8 @@ focus_follows_mouse no
 #set random wallpapers at startup
 exec --no-startup-id ~/dotfiles/scripts/setRandomWallpapers.sh
 
-#start bluetooth via blueman -- autoconnect possible via bluetooth-autoconnect
+#start bluetooth via blueman
 exec --no-startup-id blueman-applet
-
-exec --no-startup-id ~/dotfiles/scripts/start_blt_autoconnect.sh
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
