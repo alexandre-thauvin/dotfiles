@@ -22,8 +22,10 @@ Make borders of focused window
 Terminal
 
 [zsh](https://www.zsh.org/)
-Shell. Ships with macOS. `macos/config/zsh/zshrc` is symlinked to `~/.zshrc` and
-sources the portable modules in `common/config/zsh/`. Previously nushell, dropped
+Shell, on both machines. `macos/config/zsh/zshrc` (or `archlinux/config/zsh/zshrc`)
+is symlinked to `~/.zshrc` and sources the portable modules in `common/config/zsh/`.
+On Arch: `pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
+starship fzf zoxide eza bat ripgrep`, clone fzf-tab as in `install.sh`, then `chsh -s /usr/bin/zsh`. Previously nushell, dropped
 because its non-POSIX syntax broke most commands copied from docs or colleagues,
 and bash-only integrations such as RVM had to be reimplemented by hand.
 

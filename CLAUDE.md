@@ -170,9 +170,12 @@ Don't assume a script is portable or POSIX — read the shebang before editing.
 
 ## Arch Linux side
 
-Config only, no installer; apply by copying or symlinking by hand. `archlinux/config/nushell/`
-is a leftover — nushell was dropped on macOS in favour of zsh (see the README for the reasoning)
-but the Arch config was not removed.
+Config only, no installer; apply by copying or symlinking by hand. The shell is zsh, same as
+macOS: `archlinux/config/zsh/zshrc` is symlinked to `~/.zshrc` and sources the same `common/`
+modules. Those modules must therefore never assume a Homebrew path — `plugins.zsh` looks each
+plugin up through `_zsh_plugin_find` (Homebrew first, then pacman's `/usr/share/...`), and a new
+plugin needs both locations listed. `archlinux/config/nushell/` is a leftover from before the
+switch and is no longer the login shell.
 
 ## Conventions
 

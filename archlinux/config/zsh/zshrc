@@ -1,0 +1,58 @@
+#!/usr/bin/env zsh
+# ~/.zshrc  ->  ~/dotfiles/archlinux/config/zsh/zshrc
+#
+# Interactive zsh for the Arch box. Replaces archlinux/config/nushell: same
+# shell, prompt and key bindings as macOS, so commands (and scripts pasted over
+# ssh) need no translation. Everything Arch-specific lives in this file;
+# portable pieces are sourced from common/config/zsh/ at the bottom.
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+ZSH_CONFIG="$DOTFILES/common/config/zsh"
+
+# ------------------------------------------------------------------ environment
+
+# Android Studio's bundled JBR, exported only when it exists -- a JAVA_HOME
+# pointing at a missing directory makes Gradle abort outright.
+[[ -d /opt/android-studio/jbr ]] && export JAVA_HOME=/opt/android-studio/jbr
+
+# The SDK, not the IDE. The nushell config pointed ANDROID_HOME at
+# /opt/android-studio, which holds no SDK -- the same mistake the macOS config
+# used to make with the app bundle. ~/Android/Sdk is Studio's default on Linux.
+if [[ -d $HOME/Android/Sdk ]]; then
+  export ANDROID_HOME="$HOME/Android/Sdk"
+  export ANDROID_SDK_ROOT="$ANDROID_HOME"
+fi
+
+# ------------------------------------------------------------------------- PATH
+# Only existing directories are added; see the macOS zshrc for why.
+typeset -U path PATH
+
+typeset -a _candidates=(
+  "$DOTFILES/scripts"
+  "$HOME/.local/bin"
+  "$ANDROID_HOME/platform-tools"
+  "$ANDROID_HOME/emulator"
+  "$ANDROID_HOME/cmdline-tools/latest/bin"
+  /opt/android-studio/bin
+)
+typeset -a _prepend=()
+for _dir in "${_candidates[@]}"; do
+  [[ -n $_dir && -d $_dir ]] && _prepend+=("$_dir")
+done
+path=("${_prepend[@]}" $path)
+unset _candidates _prepend _dir
+
+# --------------------------------------------------------------------- aliases
+
+alias shutdown='systemctl poweroff -i'
+
+# ----------------------------------------------------------- portable modules
+# Same order and constraints as macos/config/zsh/zshrc -- see CLAUDE.md.
+source "$ZSH_CONFIG/cache.zsh"
+source "$ZSH_CONFIG/history.zsh"
+source "$ZSH_CONFIG/aliases.zsh"
+source "$ZSH_CONFIG/secrets.zsh"
+source "$ZSH_CONFIG/completion.zsh"
+source "$ZSH_CONFIG/plugins.zsh"
+source "$ZSH_CONFIG/keybindings.zsh"
+source "$ZSH_CONFIG/prompt.zsh"

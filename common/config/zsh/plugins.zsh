@@ -10,7 +10,15 @@
 #   5. zsh-syntax-highlighting -- MUST BE LAST; it wraps every ZLE widget that
 #                           exists at the moment it is sourced
 
-_brew_share=/opt/homebrew/share
+# Each plugin lives somewhere different per package manager. _zsh_plugin_find
+# sets $REPLY to the first candidate that exists, so one list covers Homebrew
+# (macOS) and pacman (Arch), and a missing plugin is simply skipped. $REPLY
+# rather than $(...): a command substitution forks, and the rc path forks nothing.
+_zsh_plugin_find() {
+  local f
+  for f in "$@"; do [[ -f $f ]] && { REPLY=$f; return 0 }; done
+  return 1
+}
 
 # ------------------------------------------------------------------------- fzf
 if (( $+commands[fzf] )); then
@@ -20,10 +28,10 @@ if (( $+commands[fzf] )); then
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   fi
   # ctrl-t files, ctrl-r history, alt-c cd
-  [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]] \
-    && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
-  [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]] \
-    && source /opt/homebrew/opt/fzf/shell/completion.zsh 2>/dev/null
+  _zsh_plugin_find /opt/homebrew/opt/fzf/shell/key-bindings.zsh \
+                   /usr/share/fzf/key-bindings.zsh && source "$REPLY"
+  _zsh_plugin_find /opt/homebrew/opt/fzf/shell/completion.zsh \
+                   /usr/share/fzf/completion.zsh && source "$REPLY" 2>/dev/null
 fi
 
 # ---------------------------------------------------------------------- fzf-tab
@@ -58,7 +66,9 @@ fi
 
 # ------------------------------------------------------------- autosuggestions
 # Fish-style greyed-out inline suggestion; -> or End accepts it.
-if [[ -f "$_brew_share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+if _zsh_plugin_find \
+    /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+    /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh; then
   # Sonokai grey, matching macos/config/sketchybar/colors.lua
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#7f8490'
   # Fall back to completion when history has nothing to offer.
@@ -70,7 +80,7 @@ if [[ -f "$_brew_share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
   # only when you delete a word from a long line while typing forward keeps
   # working. At 20 the cliff sat mid-`bundle exec fastlane`.
   ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=500
-  source "$_brew_share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  source "$REPLY"
 fi
 
 # ----------------------------------------------------------------------- zoxide
@@ -80,9 +90,11 @@ fi
 # ------------------------------------------------------------ syntax highlight
 # LAST. Wraps every widget defined above, so anything sourced after it loses
 # highlighting.
-if [[ -f "$_brew_share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+if _zsh_plugin_find \
+    /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+    /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; then
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-  source "$_brew_share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  source "$REPLY"
 fi
 
-unset _brew_share
+unfunction _zsh_plugin_find
